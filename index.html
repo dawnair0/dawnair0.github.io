@@ -14,7 +14,6 @@
                     colors: {
                         darkBg: '#0b0f19',
                         cardBg: '#131c2e',
-                        accentGradient: 'linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%)',
                     },
                     animation: {
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -32,7 +31,7 @@
     </script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
+    <!-- Google Fonts Pretendard -->
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -42,10 +41,10 @@
             overflow-x: hidden;
         }
         .glow-effect {
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
         }
         .glow-effect:hover {
-            box-shadow: 0 0 35px rgba(236, 72, 153, 0.4);
+            box-shadow: 0 0 35px rgba(236, 72, 153, 0.35);
         }
         .glass-card {
             background: rgba(19, 28, 46, 0.7);
@@ -68,28 +67,22 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between items-center py-8 px-4 sm:px-6 relative selection:bg-pink-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between items-center py-10 px-4 sm:px-6 relative selection:bg-pink-500 selection:text-white">
 
     <!-- Background Gradient Orbs -->
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[120px] pointer-events-none rounded-full"></div>
     <div class="absolute bottom-10 right-10 w-[300px] h-[300px] bg-blue-600/10 blur-[100px] pointer-events-none rounded-full"></div>
 
-    <!-- Top Action Bar (Edit / Share / Toast notification) -->
+    <!-- Top Status Bar & Share Action -->
     <div class="w-full max-w-md flex justify-between items-center mb-6 z-10">
         <div class="flex items-center space-x-2">
             <span class="inline-block w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
             <span class="text-xs font-medium text-gray-400">Online & Ready</span>
         </div>
-        <div class="flex items-center space-x-2">
-            <button onclick="openSettingsModal()" class="glass-card px-3 py-1.5 rounded-full text-xs font-medium text-gray-300 hover:text-white hover:border-purple-500/50 transition-all flex items-center space-x-1.5">
-                <i class="fa-solid fa-gear text-purple-400"></i>
-                <span>링크 편집</span>
-            </button>
-            <button onclick="shareProfile()" class="glass-card px-3 py-1.5 rounded-full text-xs font-medium text-gray-300 hover:text-white hover:border-pink-500/50 transition-all flex items-center space-x-1.5">
-                <i class="fa-solid fa-share-nodes text-pink-400"></i>
-                <span>공유</span>
-            </button>
-        </div>
+        <button onclick="shareProfile()" class="glass-card px-3.5 py-1.5 rounded-full text-xs font-medium text-gray-300 hover:text-white hover:border-pink-500/50 transition-all flex items-center space-x-1.5 shadow-lg">
+            <i class="fa-solid fa-share-nodes text-pink-400"></i>
+            <span>프로필 공유</span>
+        </button>
     </div>
 
     <!-- Main Profile Container -->
@@ -98,7 +91,7 @@
         <div class="relative mb-4 animate-float">
             <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full blur opacity-75"></div>
             <div class="relative w-28 h-28 rounded-full overflow-hidden border-2 border-gray-800 bg-gray-900 shadow-2xl">
-                <img id="profile-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" alt="프로필 아바타" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" alt="프로필 아바타" class="w-full h-full object-cover">
             </div>
             <div class="absolute bottom-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white p-1.5 rounded-full shadow-lg border border-gray-900 text-xs flex items-center justify-center w-7 h-7" title="인증된 크리에이터">
                 <i class="fa-solid fa-check text-[10px]"></i>
@@ -106,68 +99,150 @@
         </div>
 
         <!-- Nickname & Bio -->
-        <h1 id="profile-name" class="text-2xl font-bold tracking-tight text-white mb-1">Alex.dev ⚡</h1>
-        <p id="profile-bio" class="text-sm text-gray-400 text-center mb-6 px-4 leading-relaxed">
+        <h1 class="text-2xl font-bold tracking-tight text-white mb-1">Alex.dev ⚡</h1>
+        <p class="text-sm text-gray-400 text-center mb-6 px-4 leading-relaxed">
             게이머 & 크리에이터 | 소통과 기술을 사랑합니다 ✨<br>아래 링크를 통해 다양한 채널에서 만나요!
         </p>
 
-        <!-- Links Container -->
-        <div id="links-container" class="w-full space-y-3.5">
-            <!-- Dynamically populated or static links -->
+        <!-- Links Container (8 Fixed Platforms) -->
+        <div class="w-full space-y-3.5">
+            
+            <!-- 1. Instagram -->
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 via-purple-500 to-yellow-500 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">Instagram</h3>
+                        <p class="text-xs text-gray-400">일상 및 사진 소통 공간</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-purple-500/20 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 2. Twitch -->
+            <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" class="group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-brands fa-twitch"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">Twitch</h3>
+                        <p class="text-xs text-gray-400">라이브 스트리밍 및 게임 방송</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-purple-500/20 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 3. Discord -->
+            <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-brands fa-discord"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">Discord Server</h3>
+                        <p class="text-xs text-gray-400">커뮤니티 및 팬 소통 디스코드</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-purple-500/20 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 4. Guns -->
+            <a href="https://example.com/guns" target="_blank" rel="noopener noreferrer" class="group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-600 to-red-600 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">Guns</h3>
+                        <p class="text-xs text-gray-400">게임 전용 클랜 및 아카이브</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-purple-500/20 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 5. Facebook -->
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-brands fa-facebook"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">Facebook</h3>
+                        <p class="text-xs text-gray-400">페이스북 공식 프로필 페이지</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-purple-500/20 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 6. Roblox -->
+            <a href="https://roblox.com" target="_blank" rel="noopener noreferrer" class="group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-red-500 to-rose-700 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">Roblox</h3>
+                        <p class="text-xs text-gray-400">로블록스 프로필 및 게임 세상</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-purple-500/20 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 7. YouTube -->
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">YouTube Channel</h3>
+                        <p class="text-xs text-gray-400">하이라이트 영상 및 하우투</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-purple-500/20 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 8. Email (Copies on Click) -->
+            <a href="#" onclick="copyEmail('contact@example.com', event)" class="group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40 cursor-pointer">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">Contact Email</h3>
+                        <p class="text-xs text-gray-400">contact@example.com (클릭하여 복사)</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-emerald-500/20 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-copy text-xs"></i>
+                </div>
+            </a>
+
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="w-full max-w-md text-center mt-10 mb-4 z-10 text-xs text-gray-500">
-        <p>&copy; 2026 <span id="footer-name">Alex</span>. All rights reserved.</p>
+    <footer class="w-full max-w-md text-center mt-12 mb-4 z-10 text-xs text-gray-500">
+        <p>&copy; 2026 Alex. All rights reserved.</p>
         <p class="mt-1">Designed with Modern Glassmorphic UI</p>
     </footer>
-
-    <!-- Settings / Link Editor Modal -->
-    <div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-        <div class="glass-card w-full max-w-lg mx-4 rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300" id="modal-content">
-            <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-800">
-                <h3 class="text-lg font-bold text-white flex items-center space-x-2">
-                    <i class="fa-solid fa-sliders text-purple-400"></i>
-                    <span>프로필 및 링크 관리</span>
-                </h3>
-                <button onclick="closeSettingsModal()" class="text-gray-400 hover:text-white p-1.5 rounded-lg hover:bg-gray-800 transition">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <!-- Profile Info Edit Form -->
-            <div class="space-y-4 mb-6 bg-gray-900/50 p-4 rounded-xl border border-gray-800/80">
-                <h4 class="text-sm font-semibold text-purple-300">기본 정보 수정</h4>
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">닉네임</label>
-                    <input type="text" id="input-name" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">소개글</label>
-                    <textarea id="input-bio" rows="2" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500"></textarea>
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">프로필 이미지 URL</label>
-                    <input type="text" id="input-img" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500">
-                </div>
-            </div>
-
-            <!-- Platform Links Edit Form -->
-            <div class="space-y-4">
-                <h4 class="text-sm font-semibold text-pink-300">플랫폼 링크 설정</h4>
-                <div id="modal-links-list" class="space-y-3">
-                    <!-- JS will populate link inputs here -->
-                </div>
-            </div>
-
-            <!-- Modal Action Buttons -->
-            <div class="mt-6 pt-4 border-t border-gray-800 flex justify-end space-x-3">
-                <button onclick="resetToDefault()" class="px-4 py-2 rounded-xl text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700 transition">초기화</button>
-                <button onclick="saveSettings()" class="px-5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-600/30 hover:opacity-90 transition">저장하기</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-purple-500/30 flex items-center space-x-3 transition-all duration-300 translate-y-20 opacity-0 z-50 pointer-events-none">
@@ -175,169 +250,10 @@
         <span id="toast-message" class="text-sm font-medium">링크가 복사되었습니다!</span>
     </div>
 
-    <!-- JavaScript Application Logic -->
+    <!-- JavaScript Interactions (Copy & Share) -->
     <script>
-        // Default data configuration
-        const defaultProfile = {
-            name: "Alex.dev ⚡",
-            bio: "게이머 & 크리에이터 | 소통과 기술을 사랑합니다 ✨\n아래 링크를 통해 다양한 채널에서 만나요!",
-            image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop"
-        };
-
-        const defaultLinks = [
-            { id: 'instagram', name: 'Instagram', icon: 'fa-brands fa-instagram', color: 'from-pink-500 via-purple-500 to-yellow-500', url: 'https://instagram.com', enabled: true },
-            { id: 'twitch', name: 'Twitch', icon: 'fa-brands fa-twitch', color: 'from-purple-600 to-indigo-600', url: 'https://twitch.tv', enabled: true },
-            { id: 'discord', name: 'Discord Server', icon: 'fa-brands fa-discord', color: 'from-indigo-500 to-blue-600', url: 'https://discord.com', enabled: true },
-            { id: 'guns', name: 'Guns (Game & Community)', icon: 'fa-solid fa-crosshairs', color: 'from-amber-600 to-red-600', url: 'https://example.com/guns', enabled: true },
-            { id: 'facebook', name: 'Facebook', icon: 'fa-brands fa-facebook', color: 'from-blue-600 to-blue-800', url: 'https://facebook.com', enabled: true },
-            { id: 'roblox', name: 'Roblox Profile', icon: 'fa-solid fa-cube', color: 'from-red-500 to-rose-700', url: 'https://roblox.com', enabled: true },
-            { id: 'youtube', name: 'YouTube Channel', icon: 'fa-brands fa-youtube', color: 'from-red-600 to-red-800', url: 'https://youtube.com', enabled: true },
-            { id: 'email', name: 'Contact Email', icon: 'fa-solid fa-envelope', color: 'from-emerald-500 to-teal-700', url: 'mailto:contact@example.com', enabled: true }
-        ];
-
-        // Load saved data or use defaults
-        let profileData = JSON.parse(localStorage.getItem('bio_profile')) || defaultProfile;
-        let linksData = JSON.parse(localStorage.getItem('bio_links')) || defaultLinks;
-
-        // Render Page on Load
-        window.addEventListener('DOMContentLoaded', () => {
-            renderProfile();
-            renderLinks();
-        });
-
-        function renderProfile() {
-            document.getElementById('profile-name').textContent = profileData.name;
-            document.getElementById('profile-bio').innerHTML = profileData.bio.replace(/\n/g, '<br>');
-            document.getElementById('profile-img').src = profileData.image;
-            document.getElementById('footer-name').textContent = profileData.name.split(' ')[0];
-        }
-
-        function renderLinks() {
-            const container = document.getElementById('links-container');
-            container.innerHTML = '';
-
-            linksData.filter(link => link.enabled).forEach((link, index) => {
-                const isEmail = link.url.startsWith('mailto:');
-                const actionAttr = isEmail ? `onclick="copyEmail('${link.url.replace('mailto:', '')}', event)"` : `href="${link.url}" target="_blank" rel="noopener noreferrer"`;
-                
-                const card = document.createElement('a');
-                if (!isEmail) {
-                    card.href = link.url;
-                    card.target = '_blank';
-                    card.rel = 'noopener noreferrer';
-                } else {
-                    card.href = '#';
-                    card.onclick = (e) => {
-                        e.preventDefault();
-                        copyEmail(link.url.replace('mailto:', ''));
-                    };
-                }
-
-                card.className = `group relative w-full glass-card p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300 hover:scale-[1.02] glow-effect border border-white/10 hover:border-purple-500/40`;
-                card.style.animationDelay = `${index * 50}ms`;
-
-                card.innerHTML = `
-                    <div class="flex items-center space-x-3.5">
-                        <div class="w-11 h-11 rounded-xl bg-gradient-to-br ${link.color} flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="${link.icon}"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">${link.name}</h3>
-                            <p class="text-xs text-gray-400 truncate max-w-[200px] sm:max-w-[240px]">${link.url}</p>
-                        </div>
-                    </div>
-                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-purple-500/20 group-hover:text-white transition-all">
-                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // Modal Controls
-        function openSettingsModal() {
-            // Populate modal fields
-            document.getElementById('input-name').value = profileData.name;
-            document.getElementById('input-bio').value = profileData.bio;
-            document.getElementById('input-img').value = profileData.image;
-
-            const modalList = document.getElementById('modal-links-list');
-            modalList.innerHTML = '';
-
-            linksData.forEach((link, idx) => {
-                const div = document.createElement('div');
-                div.className = 'bg-gray-900/80 p-3 rounded-xl border border-gray-800 space-y-2';
-                div.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-medium text-gray-300 flex items-center space-x-2">
-                            <i class="${link.icon} text-purple-400"></i>
-                            <span>${link.name}</span>
-                        </span>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="link-en-${idx}" ${link.enabled ? 'checked' : ''} class="sr-only peer">
-                            <div class="w-8 h-4 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-purple-600"></div>
-                        </label>
-                    </div>
-                    <input type="text" id="link-url-${idx}" value="${link.url}" placeholder="URL 주소를 입력하세요" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-2.5 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-purple-500">
-                `;
-                modalList.appendChild(div);
-            });
-
-            const modal = document.getElementById('settings-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                document.getElementById('modal-content').classList.remove('scale-95');
-                document.getElementById('modal-content').classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeSettingsModal() {
-            const modal = document.getElementById('settings-modal');
-            modal.classList.add('opacity-0');
-            document.getElementById('modal-content').classList.remove('scale-100');
-            document.getElementById('modal-content').classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        function saveSettings() {
-            profileData.name = document.getElementById('input-name').value || defaultProfile.name;
-            profileData.bio = document.getElementById('input-bio').value || defaultProfile.bio;
-            profileData.image = document.getElementById('input-img').value || defaultProfile.image;
-
-            linksData.forEach((link, idx) => {
-                const urlInput = document.getElementById(`link-url-${idx}`);
-                const enCheckbox = document.getElementById(`link-en-${idx}`);
-                if (urlInput) link.url = urlInput.value;
-                if (enCheckbox) link.enabled = enCheckbox.checked;
-            });
-
-            localStorage.setItem('bio_profile', JSON.stringify(profileData));
-            localStorage.setItem('bio_links', JSON.stringify(linksData));
-
-            renderProfile();
-            renderLinks();
-            closeSettingsModal();
-            showToast('설정이 성공적으로 저장되었습니다!', 'fa-circle-check', 'text-emerald-400');
-        }
-
-        function resetToDefault() {
-            if (confirm('모든 설정과 링크를 초기값으로 되돌리시겠습니까?')) {
-                localStorage.removeItem('bio_profile');
-                localStorage.removeItem('bio_links');
-                profileData = { ...defaultProfile };
-                linksData = JSON.parse(JSON.stringify(defaultLinks));
-                renderProfile();
-                renderLinks();
-                closeSettingsModal();
-                showToast('초기화되었습니다.', 'fa-rotate-right', 'text-blue-400');
-            }
-        }
-
-        function copyEmail(email) {
-            // Safe copy method using execCommand
+        function copyEmail(email, event) {
+            event.preventDefault();
             const textArea = document.createElement("textarea");
             textArea.value = email;
             textArea.style.position = "fixed";
